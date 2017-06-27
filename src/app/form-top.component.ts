@@ -7,9 +7,9 @@ import {MdInputModule} from '@angular/material';
     selector: 'form-top',
     template: `
     <div [formGroup]="form">
-    <md-input-container class="example-full-width">
-    <input formControlName="first" mdInput placeholder="Company">
-    </md-input-container>
+        <md-input-container class="example-full-width">
+            <input formControlName="first" mdInput placeholder="Company">
+        </md-input-container>
     </div>
     `
 })

@@ -1,8 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+    Component,
+    Input,
+    Output,
+    EventEmitter,
+    OnInit
+} from '@angular/core';
+import {
+    FormGroup,
+    FormControl,
+    Validators
+} from '@angular/forms';
 import { Observable } from 'rxjs';
 
-import { tabOptions } from './shared/constants';
 import { Item } from './shared/models/item';
 
 import { forbiddenNameValidator } from './shared/validators/forbidden-name.directive';
@@ -10,25 +19,25 @@ import { forbiddenNameValidator } from './shared/validators/forbidden-name.direc
 @Component({
     selector: 'form-wrapper',
     template: `
-    {{ show }}
-    <div style="border:1px solid #f00;">
-    <form (ngSubmit)="onSubmit()" [formGroup]="form" novalidate>
-    <div [ngSwitch]="show">
-        <form-top *ngSwitchCase="thisTabOptions.one" [form]="form"></form-top>
-        <form-middle [data]="data" *ngSwitchCase="thisTabOptions.two" [form]="form"></form-middle>
-    </div>
+    <form (ngSubmit)="handleSubmit()" [formGroup]="form" novalidate>
+    <md-tab-group>
+        <md-tab label="Tab 1">
+            <form-top [form]="form"></form-top>
+        </md-tab>
+        <md-tab label="Tab 2">
+            <form-middle [data]="data" [form]="form"></form-middle>
+        </md-tab>
+    </md-tab-group>
     <button color="primary" md-raised-button>Submit</button>
     </form>
-    </div>
     
     `
 })
 export class FormWrapperComponent implements OnInit {
 
-    @Input() show: string;
     @Input() data: Item[];
+    @Output() onSubmit = new EventEmitter<FormGroup>();
     form: FormGroup;
-    thisTabOptions = tabOptions;
 
     constructor() {
 
@@ -42,7 +51,7 @@ export class FormWrapperComponent implements OnInit {
         });
     }
 
-    onSubmit() {
-        console.log(this.form.value);
+    handleSubmit() {
+        this.onSubmit.emit(this.form);
     }
 }
