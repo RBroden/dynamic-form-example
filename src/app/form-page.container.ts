@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
 import { tabOptions } from './shared/constants';
@@ -18,7 +19,7 @@ export class FormPageComponent {
     constructor() {
     }
 
-    handleSubmit(form) {
+    handleSubmit(form: FormGroup): void {
         console.log('form', form.value);
     }
 }

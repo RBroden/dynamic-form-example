@@ -51,7 +51,7 @@ export class FormWrapperComponent implements OnInit {
         });
     }
 
-    handleSubmit() {
+    handleSubmit(): void {
         this.onSubmit.emit(this.form);
     }
 }
